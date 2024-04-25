@@ -6,13 +6,13 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:01:50 by bjandri           #+#    #+#             */
-/*   Updated: 2024/04/24 18:08:31 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/04/25 13:31:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(char *str)
+long	ft_atol(char *str)
 {
 	int		sign;
 	long	resu;
@@ -47,6 +47,7 @@ int check_int(int ac, char **av)
 {
     int i;
     int j;
+    long tmp;
     
     i = 1;
     if(ac < 5 || ac > 6)
@@ -54,6 +55,9 @@ int check_int(int ac, char **av)
     while(i < ac)
     {
         j = 0;
+        tmp = ft_atol(av[i]);
+        if(tmp > 2147483647 || tmp < -2147483648)
+            error_exit();
         while(av[i][j])
         {
             if((av[i][j] >= '0' && av[i][j] <= '9'))
@@ -68,8 +72,8 @@ int check_int(int ac, char **av)
 
 void    init_args(char **str, t_philo *philo)
 {   
-    philo->num_of_philos = ft_atoi(str[1]);
-    philo->time_to_die = ft_atoi(str[2]);
-    philo->time_to_sleep = ft_atoi(str[3]);
-    philo->num_times_to_eat = ft_atoi(str[4]);
+    philo->num_of_philos = ft_atol(str[1]);
+    philo->time_to_die = ft_atol(str[2]);
+    philo->time_to_sleep = ft_atol(str[3]);
+    philo->num_times_to_eat = ft_atol(str[4]);
 }

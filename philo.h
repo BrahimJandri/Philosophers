@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/04/24 17:59:01 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/04/25 13:31:14 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philo
 }					t_philo;
 
 
-int		ft_atoi(char *str);
+long		ft_atol(char *str);
 int     check_int(int ac, char **av);
 void    init_args(char **str, t_philo *philo);
 int 	error_exit();
