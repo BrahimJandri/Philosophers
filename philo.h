@@ -13,10 +13,9 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_philo
 {
@@ -39,10 +38,9 @@ typedef struct s_philo
 	pthread_mutex_t	*meal_lock;
 }					t_philo;
 
-
-long		ft_atol(char *str);
-int     check_int(int ac, char **av);
-void    init_args(char **str, t_philo *philo);
-int 	error_exit(void);
+long				ft_atol(char *str);
+int					check_int(int ac, char **av);
+void				init_args(char **str, t_philo *philo);
+int					error_exit(void);
 
 #endif

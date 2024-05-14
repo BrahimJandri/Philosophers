@@ -12,16 +12,16 @@
 
 #include "philo.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_philo philo;
-    if(ac == 5 || ac == 6)
-    {
-        check_int(ac, av);
-        init_args(av, &philo);
-    }
-    else
-        error_exit();
-    return 0;
-}
+	t_philo	philo;
 
+	if (ac == 5 || ac == 6)
+	{
+		check_int(ac, av);
+		init_args(av, &philo);
+	}
+	else
+		error_exit();
+	return (0);
+}
