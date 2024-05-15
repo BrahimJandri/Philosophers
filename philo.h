@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/14 11:17:19 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:25:41 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
+
 
 typedef struct s_philo
 {
@@ -42,5 +44,6 @@ long				ft_atol(char *str);
 int					check_int(int ac, char **av);
 void				init_args(char **str, t_philo *philo);
 int					error_exit(void);
+long long 			get_timestamp_ms();
 
 #endif
