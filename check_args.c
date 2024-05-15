@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:01:50 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/15 09:08:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:43:30 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	error_exit(void)
 	printf("ARG2 ==> [time_to_die]\n");
 	printf("ARG3 ==> [time_to_eat]\n");
 	printf("ARG4 ==> [time_to_sleep]\n");
-	printf("ARG5 ==> (Optional [number_of_meals])\n");
+	printf("ARG5 ==> Optional [number_of_meals]\n");
 	exit(EXIT_FAILURE);
 }
 
@@ -91,8 +91,10 @@ void	init_args(char **str, t_philo *philo)
 	philo->time_to_die = ft_atol(str[2]);
 	philo->time_to_sleep = ft_atol(str[3]);
 	philo->num_times_to_eat = ft_atol(str[4]);
+	philo->eaten_meals = ft_atol(str[5]);
 	printf("philo->num_of_philos =====> %d\n", philo->num_of_philos);
 	printf("philo->time_to_die =====> %ld\n", philo->time_to_die);
 	printf("philo->time_to_sleep =====> %ld\n", philo->time_to_sleep);
 	printf("philo->num_times_to_eat =====> %d\n", philo->num_times_to_eat);
+	printf("philo->eaten_meals =====> %d\n", philo->eaten_meals);
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:10:40 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/15 16:25:00 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:41:00 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,3 +18,4 @@ long long get_timestamp_ms()
     gettimeofday(&tv, NULL);
     return (long long)(tv.tv_sec) * 1000 + (long long)(tv.tv_usec) / 1000;
 }
+
