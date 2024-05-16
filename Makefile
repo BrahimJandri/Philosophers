@@ -5,7 +5,7 @@ AR = ar rcs
 RM = rm -f
 
 
-SRC = philo.c check_args.c
+SRC = philo.c check_args.c create_thread.c
 
 OBJ = $(SRC:.c=.o)
 
