@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:08:58 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/16 17:02:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/17 15:05:23 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	main(int ac, char **av)
 {
-	t_philo	philo;
+	t_data data;
 	
 	if (ac == 5 || ac == 6)
 	{
 		check_int(ac, av);
-		init_args(av, &philo);
-		create_philos(philo.num_of_philos);
+		init_args(av, &data);
+		create_philos(data.philo_nbr);
 		pthread_exit(NULL);
 	}
 	else
-		error_exit();
+		error_args();
 	return (0);
 }
