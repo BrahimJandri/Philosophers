@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/17 15:28:09 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/18 09:06:57 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ typedef struct s_data
 long				ft_atol(char *str);
 int					check_int(int ac, char **av);
 void				init_args(char **str, t_data *data);
-void				error_args(void);
 long 				get_timestamp_ms();
 void 				create_philos(int num_of_philos);
 void* 				philosopher_routine(void *arg);
 void 				error_input(char *str);
+void 				*safe_malloc(size_t num);
+
 #endif

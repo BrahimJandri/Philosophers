@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 10:08:58 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/18 08:56:14 by bjandri          ###   ########.fr       */
+/*   Created: 2024/05/18 08:56:29 by bjandri           #+#    #+#             */
+/*   Updated: 2024/05/18 09:47:29 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+void    data_init(t_data *data)
 {
-	t_data data;
-	
-	if (ac == 5 || ac == 6)
-	{
-		check_int(ac, av);
-		init_args(av, &data);
-		data_init(&data);
-		// create_philos(data.philo_nbr);
-		// pthread_exit(NULL);
-	}
-	else
-		error_input("usage : ./philo 5 800 200 200");
-	return (0);
+    int i;
+
+    i = -1;
+    data->end = false;
+    data->philo_nbr = safe_malloc(sizeof(t_philo) * data->philo_nbr);
+    data->forks = safe_malloc(sizeof(t_fork) * data->philo_nbr);
+    while (++i < data->philo_nbr)
+    {
+        pthread_mutex_init(&data->forks[i].fork_id, NULL);
+        data->forks[i].fork_id = i;
+    }
 }

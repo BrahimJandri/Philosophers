@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:10:40 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/17 15:29:00 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/18 09:49:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void* philosopher_routine(void* arg)
 
 void create_philos(int num_of_philos)
 {
-    int i = 1;
+    int i = 0;
     t_philo philosophers[num_of_philos];
-    while (i <= num_of_philos)
+    while (++i <= num_of_philos)
     {
         philosophers[i].id = i;
         pthread_create(&philosophers[i].thread, NULL, philosopher_routine, (void*)&philosophers[i]);
-        i++;
+        usleep(200);
     }
 }
