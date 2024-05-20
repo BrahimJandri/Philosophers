@@ -6,34 +6,43 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:10:40 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/18 09:49:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/18 12:15:34 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long get_timestamp_ms()
+long    get_time(void)
 {
-    struct timeval tv;
+    struct timeval  tv;
+    long            time;
+
     gettimeofday(&tv, NULL);
-    return (long long)(tv.tv_sec) * 1000 + (long long)(tv.tv_usec) / 1000;
+    time = tv.tv_sec * 1000;
+    time += tv.tv_usec / 1000;
+    return (time);
 }
 
-void* philosopher_routine(void* arg)
+void *philo_routine(void *arg)
 {
-    t_philo* philosopher = (t_philo*)arg;
-    printf("Philosopher %d is executing\n", philosopher->id);
-    return NULL;
-}
+    t_philo *philo;
 
-void create_philos(int num_of_philos)
-{
-    int i = 0;
-    t_philo philosophers[num_of_philos];
-    while (++i <= num_of_philos)
+    philo = (t_philo *)arg;
+    while (!philo->data->end)
     {
-        philosophers[i].id = i;
-        pthread_create(&philosophers[i].thread, NULL, philosopher_routine, (void*)&philosophers[i]);
-        usleep(200);
+        pthread_mutex_lock(&philo->data->forks[philo->left_fork->fork_id].fork);
+        pthread_mutex_lock(&philo->data->forks[philo->right_fork->fork_id].fork);
+        philo->eating = 1;
+        philo->last_meal = get_time();
+        philo->meals_counter++;
+        printf("%ld %d is eating\n", get_time(), philo->id);
+        usleep(philo->data->time_to_eat * 1000);
+        pthread_mutex_unlock(&philo->data->forks[philo->left_fork->fork_id].fork);
+        pthread_mutex_unlock(&philo->data->forks[philo->right_fork->fork_id].fork);
+        philo->eating = 0;
+        printf("%ld %d is sleeping\n", get_time(), philo->id);
+        usleep(philo->data->time_to_sleep * 1000);
+        printf("%ld %d is thinking\n", get_time(), philo->id);
     }
+    return NULL;
 }
