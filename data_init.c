@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 08:56:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/20 14:24:03 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/21 09:00:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ void    data_init(t_data *data)
 
     i = 0;
     data->end = false;
-    data->philo_nbr = (long int)safe_malloc(sizeof(t_philo) * data->philo_nbr);
-    data->forks = safe_malloc(sizeof(t_fork) * data->philo_nbr);
+    data->philo_nbr = (long int)malloc(sizeof(t_philo) * data->philo_nbr);
+    if(!data->philo_nbr)
+        error_input("Malloc Fails in philo number");
+    data->forks->fork_id = (long int)malloc(sizeof(t_fork) * data->philo_nbr);
+    if(!data->forks->fork_id)
+        error_input("Malloc Fails in forks number");
     while (i++ < data->philo_nbr)
     {
         pthread_mutex_init(&data->forks[i].fork, NULL);
         data->forks[i].fork_id = i;
-
     }
 }
 

@@ -1,11 +1,11 @@
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 AR = ar rcs
 RM = rm -f
 
 
-SRC = philo.c check_args.c create_thread.c data_init.c malloc_control.c
+SRC = philo.c check_args.c create_thread.c data_init.c
 
 OBJ = $(SRC:.c=.o)
 

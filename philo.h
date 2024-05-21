@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/18 12:24:32 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/21 08:54:05 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ long				ft_atol(char *str);
 int					check_int(int ac, char **av);
 void				init_args(char **str, t_data *data);
 void 				error_input(char *str);
-void 				*safe_malloc(size_t num);
 void    			*philo_routine(void *arg);
 void   				philo_join(t_data *data);
 void    			philo_create(t_data *data);
