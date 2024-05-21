@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:10:40 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/21 11:12:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/21 14:54:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,27 @@ void check_death(t_data *data)
         if (get_current_time(data) - data->philos[i].last_meal > data->time_to_die)
         {
             data->end = true;
-            printf("%ld %d die\n", get_current_time(data), data->philos[i].id);
+            printf("%ld %d died\n", get_current_time(data), data->philos[i].id);
             exit(1);
         }
+    }
+}
+void lock_mutex(t_philo *philo, int c)
+{
+    if(c == 1)
+    {
+        pthread_mutex_lock(philo->left_fork);
+        pthread_mutex_lock(philo->right_fork);
+    }
+    else if(c == 0)
+    {
+        pthread_mutex_unlock(philo->left_fork);
+        pthread_mutex_unlock(philo->right_fork);
+    }
+    else
+    {
+        if(philo->data->end)
+            exit(EXIT_FAILURE);
     }
 }
 
@@ -51,29 +69,24 @@ void *philo_routine(void *arg)
     {
         if (philo->id % 2 == 0)
             usleep(100);
-        pthread_mutex_lock(philo->left_fork);
-        pthread_mutex_lock(philo->right_fork);
+        lock_mutex(philo, 1);
+        printf("%ld %d is taken a fork\n", get_current_time(philo->data), philo->id);
         philo->eating = 1;
         philo->last_meal = get_current_time(philo->data);
         philo->meals_counter++;
-        // printf("time_to_sleep %ld\n", philo->data->time_to_sleep);
         check_death(philo->data);
         printf("%ld %d is eating\n", get_current_time(philo->data), philo->id);
-        if (philo->data->end)
-            return NULL;
+        lock_mutex(philo, 3);
         usleep(philo->data->time_to_eat * 1000);
         check_death(philo->data);
-        pthread_mutex_unlock(philo->left_fork);
-        pthread_mutex_unlock(philo->right_fork);
+        lock_mutex(philo, 0);
         philo->eating = 0;
         check_death(philo->data);
-        if (philo->data->end)
-            return NULL;
+        lock_mutex(philo, 3);
         printf("%ld %d is sleeping\n", get_current_time(philo->data), philo->id);
         usleep(philo->data->time_to_sleep * 1000);
         printf("%ld %d is thinking\n", get_current_time(philo->data), philo->id);
-        if (philo->data->end)
-            return NULL;
+        lock_mutex(philo, 3);
     }
     return NULL;
 }

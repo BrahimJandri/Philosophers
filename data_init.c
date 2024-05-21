@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 08:56:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/21 11:10:47 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/21 14:46:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    data_destroy(t_data *data)
     i = -1;
     while (++i < data->philo_nbr)
         pthread_mutex_destroy(&data->forks[i].fork);
-    // free(&data->philo_nbr);
+    free(data->philos);
     free(data->forks);
 }
 
@@ -56,9 +56,7 @@ void    philo_init(t_data *data)
         data->philos[i].id = i + 1;
         data->philos[i].last_meal = get_time();
         data->philos[i].full = false;
-
         data->philos[i].meals_counter = 0;
-
         data->philos[i].data = data;
         data->philos[i].right_fork = &data->forks[i].fork;
         data->philos[i].left_fork = &data->forks[(i + 1) % data->philo_nbr].fork;
@@ -77,7 +75,6 @@ void    philo_create(t_data *data)
     i = -1;
     data->dinner_start = get_time();
     // pthread_create();
-    
     while (++i < data->philo_nbr)
         pthread_create(&data->philos[i].thread, NULL, philo_routine, &data->philos[i]);
 }
