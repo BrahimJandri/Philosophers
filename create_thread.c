@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:10:40 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/21 14:54:42 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:07:18 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ void lock_mutex(t_philo *philo, int c)
             exit(EXIT_FAILURE);
     }
 }
-
+void ft_update(t_philo *philo)
+{
+    philo->eating = 1;
+    philo->last_meal = get_current_time(philo->data);
+    philo->meals_counter++;
+}
 void *philo_routine(void *arg)
 {
     t_philo *philo;
@@ -71,11 +76,11 @@ void *philo_routine(void *arg)
             usleep(100);
         lock_mutex(philo, 1);
         printf("%ld %d is taken a fork\n", get_current_time(philo->data), philo->id);
-        philo->eating = 1;
-        philo->last_meal = get_current_time(philo->data);
-        philo->meals_counter++;
         check_death(philo->data);
+        ft_update(philo);
         printf("%ld %d is eating\n", get_current_time(philo->data), philo->id);
+        if(philo->meals_counter == philo->data->nb_limits_to_eat)
+            exit(EXIT_FAILURE);
         lock_mutex(philo, 3);
         usleep(philo->data->time_to_eat * 1000);
         check_death(philo->data);
