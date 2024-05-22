@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/21 10:58:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/22 11:39:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				id;
 	bool			full;
+	bool			deid;
 	long			last_meal;
 	int				meals_counter;
 	int				eating;
@@ -63,9 +64,9 @@ void 				error_input(char *str);
 void    			*philo_routine(void *arg);
 void   				philo_join(t_data *data);
 void    			philo_create(t_data *data);
-void    			philo_destroy(t_data *data);
 void    			philo_init(t_data *data);
 void    			data_destroy(t_data *data);
 void    			data_init(t_data *data);
 long    			get_time(void);
+void 				check_death(void *arg);
 #endif

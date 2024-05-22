@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:08:58 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/18 12:09:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/22 11:39:06 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int ac, char **av)
    		philo_create(&data);
     	philo_join(&data);
     	data_destroy(&data);
-    	philo_destroy(&data);
 	}
 	else
 		error_input("usage : ./philo 5 800 200 200");
