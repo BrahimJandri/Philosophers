@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:10:40 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/22 12:30:05 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:30:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,9 @@ void *philo_routine(void *arg)
         printf("%ld %d is thinking\n", get_current_time(philo->data), philo->id);
     }
     return NULL;
+}
+
+void print_msg(char *str, t_philo *philo)
+{
+    printf("%ld %d %s\n", get_current_time(philo->data), philo->id, str);
 }
