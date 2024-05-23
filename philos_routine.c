@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:56:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 10:01:57 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 12:43:30 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,29 @@ void	join_threads(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->philo_nbr)
+	while (i < data->philo_nb)
 	{
-		pthread_join(data->philos[i].thread, NULL);
+		pthread_join(data->philos[i].thread_id, NULL);
 		i++;
 	}
 }
 
-void	begin_philosophers_routine(t_data *data)
+void	start_philo_routine(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->philos->start_time = get_time();
-	while (i < data->philo_nbr)
+	while (i < data->philo_nb)
 	{
-		pthread_create(&data->philos[i].thread,
+		pthread_create(&data->philos[i].thread_id,
 			NULL, &philo_routine, (void *)&data->philos[i]);
 		i++;
 	}
 	i = 0;
-	while (i < data->philo_nbr)
+	while (i < data->philo_nb)
 	{
-		pthread_join(data->philos[i].thread, NULL);
+		pthread_join(data->philos[i].thread_id, NULL);
 		i++;
 	}
 }

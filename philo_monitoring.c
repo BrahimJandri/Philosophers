@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:45:56 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 12:08:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 12:41:28 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_if_one_is_dead(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->philo_nbr)
+	while (i < data->philo_nb)
 	{
 		if (check_last_meal(&data->philos[i]) == 0)
 			return (0);
@@ -42,7 +42,7 @@ int	check_if_one_is_dead(t_data *data)
 void	free_philo(t_data *data)
 {
 	free(data->philos);
-	free(data->forks);
+	free(data->fork_mutex);
 }
 
 void	*start_monitoring(void *arg)

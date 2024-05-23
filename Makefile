@@ -5,7 +5,7 @@ AR = ar rcs
 RM = rm -f
 
 
-SRC = philo.c check_args.c philo_monitoring.c philo_action.c utils.c
+SRC = philo.c check_args.c philo_monitoring.c philo_action.c utils.c philos_routine.c
 
 OBJ = $(SRC:.c=.o)
 

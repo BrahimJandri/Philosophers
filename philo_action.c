@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:01:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 12:01:18 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 12:38:23 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	philo_is_eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->philo_mutex);
 	ft_sleep(philo->data->time_to_eat, philo);
 	pthread_mutex_lock(&philo->philo_mutex);
-	if (philo->data->nb_limits_to_eat != -1)
+	if (philo->data->number_of_meals != -1)
 		philo->meals_counter++;
 	pthread_mutex_unlock(&philo->philo_mutex);
 	pthread_mutex_unlock(philo->left_fork);
