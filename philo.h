@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 16:17:33 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:50:19 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_data
 
 // init_philos.c
 
-void			init_philo(t_data *data);
-int				mutex_init(t_data *data);
+void				init_philo(t_data *data);
+void				forks_creat(t_data *data);
 void				init_args(t_data *data, char **argv);
 
 
@@ -72,7 +72,6 @@ void				philo_is_thinking(t_philo *philo);
 // philos_routine
 
 void    			*philo_routine(void *arg);
-void				join_threads(t_data *data);
 void				start_philo_routine(t_data *data);
 
 // philo_monitoring

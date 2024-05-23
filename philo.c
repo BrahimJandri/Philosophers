@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:08:58 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 16:43:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:50:28 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av)
 		check_int(ac, av);
 		init_args(&data, av);
 		init_philo(&data);
+		forks_creat(&data);
 		start_philo_routine(&data);
 	}
 	else

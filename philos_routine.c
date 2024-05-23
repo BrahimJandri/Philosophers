@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:56:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 16:42:06 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:48:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,6 @@ void    *philo_routine(void *arg)
 	return (0);
 }
 
-
-void	join_threads(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->philo_nb)
-	{
-		pthread_join(data->philos[i].thread_id, NULL);
-		i++;
-	}
-}
 
 void	start_philo_routine(t_data *data)
 {
