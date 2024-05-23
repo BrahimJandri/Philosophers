@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:45:56 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 12:41:28 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:24:59 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	check_if_one_is_dead(t_data *data)
 void	free_philo(t_data *data)
 {
 	free(data->philos);
-	free(data->fork_mutex);
 }
 
 void	*start_monitoring(void *arg)

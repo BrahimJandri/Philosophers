@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 12:40:09 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:17:33 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ typedef struct s_philo
 	int					id;
 	int					last_meal;
 	int					is_eating;
-	int					time_to_die;
 	int					meals_counter;
-	int					time_to_sleep;
-	int					time_to_eat;
 	int					start_time;
 	int					number_of_meals;
 	int					philo_deid;
@@ -46,19 +43,23 @@ typedef struct s_data
 	int					time_to_die;
 	int					time_to_sleep;
 	int					time_to_eat;
-	int					number_of_meals;
 	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
 	t_philo				*philos;
 }	t_data;
+
+
+// init_philos.c
+
+void			init_philo(t_data *data);
+int				mutex_init(t_data *data);
+void				init_args(t_data *data, char **argv);
+
 
 // check_args
 
 long				ft_atol(char *str);
 void 				error_input(char *str);
 int					check_int(int ac, char **av);
-void				init_args(char **str, t_data *data);
 
 // philo_action
 

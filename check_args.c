@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:01:50 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 12:37:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 14:24:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,3 @@ int	check_int(int ac, char **av)
 	return (0);
 }
 
-void	init_args(char **str, t_data *data)
-{
-	data->philo_nb = ft_atol(str[1]);
-	data->time_to_die = ft_atol(str[2]);
-	data->time_to_eat = ft_atol(str[3]);
-	data->time_to_sleep = ft_atol(str[4]);
-	if(data->philo_nb > 200 || data->time_to_die < 0 || data->time_to_eat < 0 || data->time_to_sleep < 0)
-		error_input("use less than 200 philos and more than 60ms in the rest of args");
-	if(str[5])
-		data->number_of_meals = ft_atol(str[5]);
-	else
-	data->number_of_meals = -1;
-}
