@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:56:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 12:43:30 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:42:06 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	start_philo_routine(t_data *data)
 	data->philos->start_time = get_time();
 	while (i < data->philo_nb)
 	{
-		pthread_create(&data->philos[i].thread_id,
-			NULL, &philo_routine, (void *)&data->philos[i]);
+		pthread_create(&data->philos[i].thread_id, NULL, &philo_routine, (void *)&data->philos[i]);
 		i++;
 	}
 	i = 0;
