@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:45:56 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/24 15:59:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:23:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	*start_monitoring(void *arg)
 	data = (t_data *)arg;
 	while (1)
 	{
-		// pthread_mutex_lock(&data->philos->philo_mutex);
+		pthread_mutex_lock(&data->philos->philo_mutex);
 		if (check_if_one_is_dead(data) == 0)
 		{
 			usleep(100);
-			// return (pthread_mutex_unlock(&data->philos->philo_mutex), NULL);
+			return (pthread_mutex_unlock(&data->philos->philo_mutex), NULL);
 		}
-		// pthread_mutex_unlock(&data->philos->philo_mutex);
+		pthread_mutex_unlock(&data->philos->philo_mutex);
 		usleep(200);
 	}
 }
