@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:50:38 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/24 14:41:07 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:35:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	init_philo(t_data *data)
 		data->philos[i].last_meal = 0;
         data->philos[i].philo_deid = 0;
 		data->philos[i].is_eating = 0;
-		data->philos[i].number_of_meals = 0;
 		i++;
 	}
 }
@@ -45,10 +44,10 @@ void	init_args(t_data *data, char **argv)
     }
 	if(argv[5])
     {
-		data->philos->number_of_meals = ft_atol(argv[5]);
+		data->number_of_meals = ft_atol(argv[5]);
     }
 	else
-		data->philos->number_of_meals = -1;
+		data->number_of_meals = -1;
 }
 
 void	forks_creat(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 16:50:19 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:05:12 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_philo
 	int					is_eating;
 	int					meals_counter;
 	int					start_time;
-	int					number_of_meals;
 	int					philo_deid;
 	struct s_data		*data;
 	pthread_mutex_t		philo_mutex;
@@ -43,6 +42,7 @@ typedef struct s_data
 	int					time_to_die;
 	int					time_to_sleep;
 	int					time_to_eat;
+	int					number_of_meals;
 	pthread_mutex_t		*fork_mutex;
 	t_philo				*philos;
 }	t_data;
@@ -84,6 +84,7 @@ void				*start_monitoring(void *arg);
 // utils.c
 
 long				get_time(void);
+long				get_curr_time(t_philo *philo);
 void				print_msg(char *str, t_philo *philo);
 void				ft_sleep(int time, t_philo *philo);
 
