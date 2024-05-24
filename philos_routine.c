@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:56:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/24 15:34:51 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:03:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void    *philo_routine(void *arg)
         if(philo_is_dead(philo))
             return (0);
         philo_takes_forks(philo);
-        	if (philo_is_dead(philo))
+        if (philo_is_dead(philo))
 		{
-			pthread_mutex_unlock(philo->left_fork);
-			pthread_mutex_unlock(philo->right_fork);
+			// pthread_mutex_unlock(philo->left_fork);
+			// pthread_mutex_unlock(philo->right_fork);
 			return (0);
 		}
 		philo_is_eating(philo);
@@ -40,21 +40,21 @@ void    *philo_routine(void *arg)
 }
 
 
-void	start_philo_routine(t_data *data)
+void	start_philo_routine(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	data->philos->start_time = get_time();
-	while (i < data->philo_nb)
+	philo->start_time = get_time();
+	while (i < philo->data->philo_nb)
 	{
-		pthread_create(&data->philos[i].thread_id, NULL, &philo_routine, (void *)&data->philos[i]);
+		pthread_create(&philo[i].thread_id, NULL, &philo_routine, (void *)&philo[i]);
 		i++;
 	}
 	i = 0;
-	while (i < data->philo_nb)
+	while (i < philo->data->philo_nb)
 	{
-		pthread_join(data->philos[i].thread_id, NULL);
+		pthread_join(philo[i].thread_id, NULL);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:14:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/24 15:35:11 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:01:24 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	print_msg(char *str, t_philo *philo)
 	if (!philo_is_dead(philo))
 	{
 		pthread_mutex_lock(&philo->philo_mutex);
-		printf("%ld %d %s\n", get_time()
-			- philo->start_time, philo->id, str);
+		printf("%ld %d %s\n", get_time() - philo->start_time, philo->id, str);
 		pthread_mutex_unlock(&philo->philo_mutex);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/24 15:05:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:03:32 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void				philo_is_thinking(t_philo *philo);
 // philos_routine
 
 void    			*philo_routine(void *arg);
-void				start_philo_routine(t_data *data);
+void				start_philo_routine(t_philo *philo);
 
 // philo_monitoring
 
