@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:50:38 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/23 16:44:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:41:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	init_args(t_data *data, char **argv)
     }
 	else
 		data->philos->number_of_meals = -1;
-	data->philos->philo_deid = 0;
 }
 
 void	forks_creat(t_data *data)
