@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/25 15:37:55 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/25 17:04:30 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	// int 				ready;
+	int 				ready;
 	int					philo_deid;
 	int					philo_nb;
 	int					time_to_die;

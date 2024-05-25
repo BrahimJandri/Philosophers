@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/25 16:28:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/25 17:09:03 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void init_philo_args(t_data *data, char **av)
 {
     data->philo_nb = ft_atol(av[1]);
     data->time_to_die = ft_atol(av[2]) * 1000;
-    data->time_to_eat = ft_atol(av[3]);
-    data->time_to_sleep = ft_atol(av[4]);
+    data->time_to_eat = ft_atol(av[3]) * 1000;
+    data->time_to_sleep = ft_atol(av[4]) * 1000;
     if(av[5])
         data->number_of_meals = ft_atol(av[5]);
     else
@@ -31,13 +31,12 @@ void create_philos(t_data *data)
     i = 0;
 
     data->philos->start_time = get_time();
-    check_if_dead(data->philos);
     while (i < data->philo_nb)
     {
         pthread_create(&data->philos[i].thread_id, NULL, philo_routine, (void *)&data->philos[i]);
         i++;
     }
-    data->philos->last_meal = get_time();
+    check_if_dead(data->philos);
     i = 0;
     while (i < data->philo_nb)
     {

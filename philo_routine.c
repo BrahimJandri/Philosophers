@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/25 16:24:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/25 17:08:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,21 @@ void *philo_routine(void *arg)
         }
 
         printf("%ld %d is eating\n", get_current_time(philo->data), philo->id);
+        philo->last_meal = get_time();
         usleep(20000);
         pthread_mutex_unlock(philo->left_fork);
         pthread_mutex_unlock(philo->right_fork);
         printf("%ld %d is sleeping\n", get_current_time(philo->data), philo->id);
         usleep(20000);
+        printf("%ld %d is thinking\n", get_current_time(philo->data), philo->id);
     }
     return NULL;
 }
 
 int check_if_dead(t_philo *philo)
 {
-    long current_time = get_time();
-    if (current_time - philo->last_meal > philo->data->time_to_die)
+    usleep(100);
+    if (get_time() - philo->last_meal > philo->data->time_to_die)
     {
         pthread_mutex_lock(&philo->data->print_mutex);
         philo->data->philo_deid = 1;
