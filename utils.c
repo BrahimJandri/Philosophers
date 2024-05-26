@@ -12,15 +12,15 @@
 
 #include "philo.h"
 
-long get_time(void)
+long	get_time(void)
 {
-    static struct timeval	t;
+	static struct timeval	t;
 
 	gettimeofday(&t, NULL);
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-long get_current_time(t_data *data)
+long	get_current_time(t_data *data)
 {
-    return(get_time() - data->philos->start_time);
+	return (get_time() - data->philos->start_time);
 }
