@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/26 14:32:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/26 15:23:28 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_philo
 	int				meals_counter;
 	long			start_time;
 	struct s_data	*data;
-	// pthread_mutex_t		philo_mutex;
 	pthread_t		thread_id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -71,7 +70,7 @@ long				get_current_time(t_data *data);
 // philo_routine.c
 
 void				*philo_routine(void *arg);
-int					check_if_dead(t_philo *philo);
+void				check_if_dead(t_philo *philo);
 void				taking_forks(t_philo *philo);
 void				is_eating(t_philo *philo);
 void				sleep_think(t_philo *philo);
