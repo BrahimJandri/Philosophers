@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 16:51:44 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 18:28:19 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	taking_forks(t_philo *philo)
 
 void	is_eating(t_philo *philo)
 {
-	printf("%ld %d is eating 🍝\n", get_current_time(philo->data), philo->id);
 	philo->last_meal = get_time();
+	printf("%ld %d is eating 🍝\n", get_current_time(philo->data), philo->id);
     philo->meals_counter++;
 	usleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
@@ -63,8 +63,8 @@ void	*philo_routine(void *arg)
 		taking_forks(philo);
 		is_eating(philo);
 		sleep_think(philo);
-        check_is_full(philo);
 		check_if_dead(philo);
+        check_is_full(philo);
 	}
 	return (NULL);
 }
@@ -74,9 +74,6 @@ void	check_if_dead(t_philo *philo)
 	usleep(100);
 	if ((get_time() - philo->last_meal) >= philo->data->time_to_die)
 	{
-		// pthread_mutex_lock(&philo->data->print_mutex);
-		// philo->data->philo_deid = 1;
-		// pthread_mutex_unlock(&philo->data->print_mutex);
 		pthread_mutex_lock(&philo->data->print_mutex);
 		printf("%ld %d has died\n", get_current_time(philo->data), philo->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);

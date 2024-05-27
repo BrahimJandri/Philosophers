@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 16:34:44 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 18:27:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void init_philos(t_data *data, char **av)
     if (!data->philos)
         error_input("malloc philo fails\n");
     i = 0;
-    data->philo_deid = 0;
     while (i < data->philo_nb)
     {
         data->philos[i].id = i + 1;
