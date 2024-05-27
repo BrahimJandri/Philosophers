@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 14:29:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:55:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@ void	taking_forks(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
-		printf("%ld %d has taking a right fork\n",
+		printf("%ld %d has taking a right fork 🍴\n",
 			get_current_time(philo->data), philo->id);
 		pthread_mutex_lock(philo->left_fork);
-		printf("%ld %d has taking a left fork\n", get_current_time(philo->data),
+		printf("%ld %d has taking a left fork 🍴\n", get_current_time(philo->data),
 			philo->id);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
-		printf("%ld %d has taking a left fork\n", get_current_time(philo->data),
+		printf("%ld %d has taking a left fork 🍴\n", get_current_time(philo->data),
 			philo->id);
 		pthread_mutex_lock(philo->right_fork);
-		printf("%ld %d has taking a right fork\n",
+		printf("%ld %d has taking a right fork 🍴\n",
 			get_current_time(philo->data), philo->id);
 	}
 }
 
 void	is_eating(t_philo *philo)
 {
-	printf("%ld %d is eating\n", get_current_time(philo->data), philo->id);
+	printf("%ld %d is eating 🍝\n", get_current_time(philo->data), philo->id);
 	philo->last_meal = get_time();
     philo->meals_counter++;
 	usleep(philo->data->time_to_eat);
@@ -46,9 +46,9 @@ void	is_eating(t_philo *philo)
 
 void	sleep_think(t_philo *philo)
 {
-	printf("%ld %d is sleeping\n", get_current_time(philo->data), philo->id);
+	printf("%ld %d is sleeping 😴\n", get_current_time(philo->data), philo->id);
 	usleep(philo->data->time_to_sleep);
-	printf("%ld %d is thinking\n", get_current_time(philo->data), philo->id);
+	printf("%ld %d is thinking 🤔\n", get_current_time(philo->data), philo->id);
 }
 
 void	*philo_routine(void *arg)
@@ -62,8 +62,8 @@ void	*philo_routine(void *arg)
 	{
 		taking_forks(philo);
 		is_eating(philo);
-        check_is_full(philo);
 		sleep_think(philo);
+        check_is_full(philo);
 	}
 	return (NULL);
 }
@@ -71,7 +71,7 @@ void	*philo_routine(void *arg)
 void	check_if_dead(t_philo *philo)
 {
 	usleep(100);
-	if (philo->data->number_of_meals == philo->meals_counter)
+	if (get_time() - philo->last_meal > philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&philo->data->print_mutex);
 		philo->data->philo_deid = 1;

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 14:31:02 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 16:16:44 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,16 @@ void init_philo_args(t_data *data, char **av)
     data->time_to_eat = ft_atol(av[3]) * 1000;
     data->time_to_sleep = ft_atol(av[4]) * 1000;
     if (av[5])
+    {
         data->number_of_meals = ft_atol(av[5]);
+    }
     else
         data->number_of_meals = -1;
+    if(data->number_of_meals <= 0 || data->philo_nb <= 0)
+    {
+        printf("ERROR : philo and number of meals must be more than 0\n");
+        exit(EXIT_FAILURE);  
+    }
 }
 
 void create_philos(t_data *data)
@@ -89,7 +96,12 @@ void init_philos(t_data *data, char **av)
 
 void check_is_full(t_philo *philo)
 {
+    usleep(1000);
     if (philo->data->number_of_meals == philo->meals_counter)
+    {
+        pthread_mutex_lock(&philo->data->print_mutex);
+        printf("All philos is full\n");
+        pthread_mutex_unlock(&philo->data->print_mutex);
         exit(EXIT_SUCCESS);
-
+    }
 }
