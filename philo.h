@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 14:29:56 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 16:56:46 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef struct s_philo
 {
 	int				id;
-	int				last_meal;
+	long			last_meal;
 	int				is_eating;
 	int				meals_counter;
 	long			start_time;
