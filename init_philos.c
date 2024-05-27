@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/26 15:58:26 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 14:31:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void create_philos(t_data *data)
         }
         i++;
     }
-    check_if_dead(data->philos);
     i = 0;
     while (i < data->philo_nb) {
         if (pthread_join(data->philos[i].thread_id, NULL) != 0) {
@@ -80,9 +79,17 @@ void init_philos(t_data *data, char **av)
         data->philos[i].left_fork = &data->fork_mutex[i];
         data->philos[i].right_fork = &data->fork_mutex[(i + 1)
             % data->philo_nb];
-        data->philos[i].is_eating = 0;
+        data->philos[i].last_meal = 0;
+        data->philos[i].meals_counter = 0;
         data->philos[i].data = data;
         i++;
     }
     create_philos(data);
+}
+
+void check_is_full(t_philo *philo)
+{
+    if (philo->data->number_of_meals == philo->meals_counter)
+        exit(EXIT_SUCCESS);
+
 }

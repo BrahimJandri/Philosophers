@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/26 15:30:49 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/27 14:29:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	is_eating(t_philo *philo)
 {
 	printf("%ld %d is eating\n", get_current_time(philo->data), philo->id);
 	philo->last_meal = get_time();
+    philo->meals_counter++;
 	usleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -60,10 +61,8 @@ void	*philo_routine(void *arg)
 	while (1)
 	{
 		taking_forks(philo);
-        philo->last_meal = get_time();
 		is_eating(philo);
-        philo->last_meal = get_time();
-        philo->meals_counter++;
+        check_is_full(philo);
 		sleep_think(philo);
 	}
 	return (NULL);
@@ -72,7 +71,7 @@ void	*philo_routine(void *arg)
 void	check_if_dead(t_philo *philo)
 {
 	usleep(100);
-	if (get_time() - philo->last_meal > philo->data->time_to_die || philo->data->number_of_meals == philo->meals_counter)
+	if (philo->data->number_of_meals == philo->meals_counter)
 	{
 		pthread_mutex_lock(&philo->data->print_mutex);
 		philo->data->philo_deid = 1;
