@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 10:40:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:33:29 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	taking_forks(t_philo *philo)
 void	print_status(char *str, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->lock_mutex);
-	if (philo->data->die)
+	if (philo->die)
 	{
 		pthread_mutex_unlock(&philo->data->lock_mutex);
 		return ;
@@ -52,13 +52,9 @@ void	is_eating(t_philo *philo)
 
 void	sleep_think(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->print_mutex);
 	print_status("is sleeping 😴", philo);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 	usleep(philo->data->time_to_sleep);
-	pthread_mutex_lock(&philo->data->print_mutex);
 	print_status("is thinking 🤔", philo);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 void	*philo_routine(void *arg)
@@ -82,13 +78,12 @@ int	check_if_dead(t_philo *philo)
 	usleep(100);
 	if ((get_time() - philo->last_meal) >= philo->data->time_to_die)
 	{
-		
+		pthread_mutex_lock(&philo->data->lock_mutex);
+		philo->die = 1;
+		pthread_mutex_unlock(&philo->data->lock_mutex);
 		pthread_mutex_lock(&philo->data->print_mutex);
 		print_status("has died", philo);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		pthread_mutex_lock(&philo->data->lock_mutex);
-		philo->data->die = 1;
-		pthread_mutex_unlock(&philo->data->lock_mutex);
 		return (1);
 	}
 	return (0);

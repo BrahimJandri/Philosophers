@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:50:16 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 14:12:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:28:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int ac, char **av)
 			free(data.fork_mutex);
 			while(++i < data.philo_nb)
 				pthread_mutex_destroy(&data.fork_mutex[i]);
+			pthread_mutex_destroy(&data.print_mutex);
+			pthread_mutex_destroy(&data.lock_mutex);
 		}
 	}
 	else

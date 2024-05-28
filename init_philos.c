@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 10:42:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:27:08 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,13 @@ void init_philos(t_data *data, char **av)
 
     init_philo_args(data, av);
     create_forks(data);
+    pthread_mutex_init(&data->lock_mutex, NULL);
+    pthread_mutex_init(&data->print_mutex, NULL);
     data->philos = malloc(sizeof(t_philo) * data->philo_nb);
     if (!data->philos)
         error_input("malloc philo fails\n");
     i = 0;
-    data->die = 0;
+    data->philos->die = 0;
     while (i < data->philo_nb)
     {
         data->philos[i].id = i + 1;
