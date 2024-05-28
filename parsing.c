@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:35:21 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 18:27:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/28 13:22:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	error_input(char *str)
+void		error_input(char *str)
 {
 	write(2, str, ft_strlen(str));
-	exit(EXIT_FAILURE);
 }
 
 long	ft_atol(char *str)
@@ -42,7 +41,7 @@ long	ft_atol(char *str)
 	if (*s == '-' || *s == '+')
 	{
 		if (*s == '-')
-			error_input("Number can't be Negative ❌");
+			error_input("Number can't be Negative ❌\n");
 		else
 			s++;
 	}
@@ -66,8 +65,8 @@ int	check_int(int ac, char **av)
 		j = 0;
 		tmp = ft_atol(av[i]);
 		if (tmp > INT_MAX || tmp < INT_MIN)
-			error_input("Number can't be greater than \
-		int max or less than int min ❌");
+			return(error_input("Number can't be greater than \
+int max or less than int min ❌\n"), 1);
 		while (av[i][j] == '0' || av[i][j] == '+')
 			j++;
 		while (av[i][j])
@@ -75,7 +74,7 @@ int	check_int(int ac, char **av)
 			if ((av[i][j] >= '0' && av[i][j] <= '9'))
 				j++;
 			else
-				error_input("Please enter a valid number");
+				return(error_input("Please enter a valid number\n"), 1);
 		}
 		i++;
 	}

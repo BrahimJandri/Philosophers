@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 10:01:56 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:42:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void init_philo_args(t_data *data, char **av)
     if(data->number_of_meals == 0 || data->philo_nb == 0)
     {
         printf("ERROR : philo and number of meals must be more than 0\n");
-        exit(EXIT_FAILURE);  
+        return; 
     }
 }
 
@@ -57,7 +57,9 @@ void create_philos(t_data *data)
 
 void create_forks(t_data *data)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
     data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
     if (!data->fork_mutex)
         error_input("malloc forks fails\n");
@@ -107,7 +109,6 @@ int check_is_full(t_philo *philo)
         printf("Every Philosopher had %d meals!\n", philo->data->number_of_meals);
         pthread_mutex_unlock(&philo->data->print_mutex);
         return (1);
-        exit(EXIT_SUCCESS);
     }
     return (0);
 }
