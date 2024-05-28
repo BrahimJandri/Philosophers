@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/27 18:27:25 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:01:56 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void init_philo_args(t_data *data, char **av)
 {
     data->philo_nb = ft_atol(av[1]);
-    data->time_to_die = ft_atol(av[2]) * 1000;
+    data->time_to_die = ft_atol(av[2]);
     data->time_to_eat = ft_atol(av[3]) * 1000;
     data->time_to_sleep = ft_atol(av[4]) * 1000;
     if (av[5])
@@ -64,7 +64,11 @@ void create_forks(t_data *data)
     pthread_mutex_init(&data->print_mutex, NULL);
     while (i < data->philo_nb)
     {
-        pthread_mutex_init(&data->fork_mutex[i], NULL);
+        if(pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
+        {
+            error_input("pthread_mutex_init failed\n");
+            return ;
+        }
         i++;
     }
 }
@@ -79,13 +83,14 @@ void init_philos(t_data *data, char **av)
     if (!data->philos)
         error_input("malloc philo fails\n");
     i = 0;
+    data->die = 0;
     while (i < data->philo_nb)
     {
         data->philos[i].id = i + 1;
         data->philos[i].left_fork = &data->fork_mutex[i];
         data->philos[i].right_fork = &data->fork_mutex[(i + 1)
             % data->philo_nb];
-        data->philos[i].last_meal = 0;
+        data->philos[i].last_meal = get_time();
         data->philos[i].meals_counter = 0;
         data->philos[i].data = data;
         i++;
@@ -93,7 +98,7 @@ void init_philos(t_data *data, char **av)
     create_philos(data);
 }
 
-void check_is_full(t_philo *philo)
+int check_is_full(t_philo *philo)
 {
     usleep(100);
     if (philo->data->number_of_meals == philo->meals_counter)
@@ -101,6 +106,8 @@ void check_is_full(t_philo *philo)
         pthread_mutex_lock(&philo->data->print_mutex);
         printf("Every Philosopher had %d meals!\n", philo->data->number_of_meals);
         pthread_mutex_unlock(&philo->data->print_mutex);
+        return (1);
         exit(EXIT_SUCCESS);
     }
+    return (0);
 }
