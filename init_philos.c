@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 18:27:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:05:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void create_philos(t_data *data)
     while (i < data->philo_nb)
     {
         if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
-                (void *)&data->philos[i]) != 0)
+                (void *)&data->philos[i]))
         {
             error_input("pthread_create failed\n");
             return;
@@ -46,14 +46,16 @@ void create_philos(t_data *data)
         i++;
     }
     i = 0;
-    while (i < data->philo_nb) {
-        if (pthread_join(data->philos[i].thread_id, NULL) != 0) {
+    while (i < data->philo_nb)
+    {
+        if (pthread_join(data->philos[i].thread_id, NULL))
+        {
             error_input("pthread_join failed\n");
             return;
         }
         i++;
     }
-}
+}   
 
 void create_forks(t_data *data)
 {
@@ -102,15 +104,3 @@ void init_philos(t_data *data, char **av)
     create_philos(data);
 }
 
-int check_is_full(t_philo *philo)
-{
-    usleep(100);
-    if (philo->data->number_of_meals == philo->meals_counter)
-    {
-        pthread_mutex_lock(&philo->data->print_mutex);
-        printf("Every Philosopher had %d meals!\n", philo->data->number_of_meals);
-        pthread_mutex_unlock(&philo->data->print_mutex);
-        return (1);
-    }
-    return (0);
-}

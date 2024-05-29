@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 14:44:29 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 14:36:08 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				time_to_eat;
 	int				number_of_meals;
+	int 			all_full_notified;
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	lock_mutex;
@@ -61,6 +62,7 @@ void				create_philos(t_data *data);
 void				create_forks(t_data *data);
 void				init_philos(t_data *data, char **av);
 int 				check_is_full(t_philo *philo);
+void 				one_philo(t_data *data);
 
 // utils.c
 
