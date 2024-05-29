@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/29 15:05:42 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:22:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void create_forks(t_data *data)
     data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
     if (!data->fork_mutex)
         error_input("malloc forks fails\n");
+    pthread_mutex_init(&data->lock_mutex, NULL);
     pthread_mutex_init(&data->print_mutex, NULL);
     while (i < data->philo_nb)
     {
@@ -83,8 +84,6 @@ void init_philos(t_data *data, char **av)
 
     init_philo_args(data, av);
     create_forks(data);
-    pthread_mutex_init(&data->lock_mutex, NULL);
-    pthread_mutex_init(&data->print_mutex, NULL);
     data->philos = malloc(sizeof(t_philo) * data->philo_nb);
     if (!data->philos)
         error_input("malloc philo fails\n");

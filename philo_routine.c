@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/29 14:43:17 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:28:28 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ int check_is_full(t_philo *philo)
 	if (philo->data->number_of_meals == philo->meals_counter)
 	{
 		pthread_mutex_lock(&philo->data->print_mutex);
-		if (!philo->data->all_full_notified)
-		{
-			printf("Every Philosopher had %d meals!\n", philo->data->number_of_meals);
-			philo->data->all_full_notified = 1;
-		}
+		printf("Every Philosopher had %d meals!\n", philo->data->number_of_meals);
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return 1;
 	}
