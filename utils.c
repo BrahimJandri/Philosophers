@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/25 15:03:36 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:52:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ long	get_time(void)
 
 long	get_current_time(t_data *data)
 {
-	return (get_time() - data->philos->start_time);
+	return ((get_time() - data->philos->start_time)) - 1;
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/29 15:22:38 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:44:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void init_philo_args(t_data *data, char **av)
 {
     data->philo_nb = ft_atol(av[1]);
     data->time_to_die = ft_atol(av[2]);
-    data->time_to_eat = ft_atol(av[3]) * 1000;
-    data->time_to_sleep = ft_atol(av[4]) * 1000;
+    data->time_to_eat = ft_atol(av[3]);
+    data->time_to_sleep = ft_atol(av[4]);
     if (av[5])
     {
         data->number_of_meals = ft_atol(av[5]);
@@ -34,7 +34,7 @@ void init_philo_args(t_data *data, char **av)
 void create_philos(t_data *data)
 {
     int i = 0;
-    data->philos->start_time = get_time();
+    // data->philos->start_time = get_time();
     while (i < data->philo_nb)
     {
         if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
@@ -88,9 +88,11 @@ void init_philos(t_data *data, char **av)
     if (!data->philos)
         error_input("malloc philo fails\n");
     i = 0;
-    data->philos->die = 0;
+    data->die = 0;
+    data->ready = 0;
     while (i < data->philo_nb)
     {
+        data->philos[i].start_time = get_time();
         data->philos[i].id = i + 1;
         data->philos[i].left_fork = &data->fork_mutex[i];
         data->philos[i].right_fork = &data->fork_mutex[(i + 1)

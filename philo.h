@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/29 15:28:47 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:47:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+
+# define WHT "\e[1;37m"
 
 typedef struct s_philo
 {
@@ -36,6 +39,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
+	int 			die;
 	int				philo_nb;
 	int				time_to_die;
 	int				time_to_sleep;
@@ -45,6 +49,7 @@ typedef struct s_data
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	lock_mutex;
 	t_philo			*philos;
+	int ready;
 }					t_data;
 
 // parsing.c
@@ -76,4 +81,7 @@ void				taking_forks(t_philo *philo);
 void				is_eating(t_philo *philo);
 void				sleep_think(t_philo *philo);
 void				print_status(char *str, t_philo *philo);
+
+// for usleep
+void				 ft_sleep(long time);
 #endif
