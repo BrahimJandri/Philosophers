@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 12:13:42 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:30:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	print_status(char *str, t_philo *philo)
 void	is_eating(t_philo *philo)
 {
 	print_status("is eating 🍝", philo);
-	philo->meals_counter++;
 	philo->last_meal = get_time();
+	philo->meals_counter++;
 	ft_sleep(philo->data->time_to_eat);
 	if (philo->id % 2)
 	{

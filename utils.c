@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 11:56:39 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 13:31:12 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 long	get_time(void)
 {
-	static struct timeval	t;
+	static struct timeval	time;
 
-	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 void	ft_sleep(int time)
@@ -30,7 +30,7 @@ void	ft_sleep(int time)
 
 int	check_if_dead(t_philo *philo)
 {
-	if ((get_time() - philo->last_meal) >= philo->data->time_to_die)
+	if (((get_time() - philo->last_meal)) >= philo->data->time_to_die)
 	{
 		print_status("has died ⚰️", philo);
 		pthread_mutex_lock(&philo->data->print_mutex);
