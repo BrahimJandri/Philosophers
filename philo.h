@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 08:41:11 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:40:48 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				create_philos(t_data *data);
 void				create_forks(t_data *data);
 void				init_philos(t_data *data, char **av);
 int					check_is_full(t_philo *philo);
-void				one_philo(t_data *data);
+
 
 // utils.c
 
@@ -82,5 +82,5 @@ void				sleep_think(t_philo *philo);
 void				print_status(char *str, t_philo *philo);
 
 // for usleep
-void				ft_sleep(int time);
+void				ft_sleep(long time);
 #endif

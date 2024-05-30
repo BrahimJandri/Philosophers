@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 09:42:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:37:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	taking_forks(t_philo *philo)
 {
+	if (philo->id % 2 != 0)
+		usleep(100);
 	if (philo->id % 2 != 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
@@ -66,8 +68,6 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 != 0)
-		usleep(100);
 	while (1)
 	{
 		if (check_if_dead(philo) || check_is_full(philo))
