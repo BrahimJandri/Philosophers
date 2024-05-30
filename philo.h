@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 11:40:03 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:14:06 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_data
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	print_mutex;
 	t_philo			*philos;
+
 }					t_data;
 
 // parsing.c

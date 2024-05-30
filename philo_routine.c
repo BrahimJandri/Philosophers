@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 14:30:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:28:19 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	taking_forks(t_philo *philo)
 {
-	if (philo->id % 2)
+	if (philo->id % 2 != 0)
 	{
-		pthread_mutex_lock(philo->right_fork);
-		print_status("has taken a fork 🍴", philo);
 		pthread_mutex_lock(philo->left_fork);
+		print_status("has taken a fork 🍴", philo);
+		pthread_mutex_lock(philo->right_fork);
 		print_status("has taken a fork 🍴", philo);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->left_fork);
-		print_status("has taken a fork 🍴", philo);
 		pthread_mutex_lock(philo->right_fork);
+		print_status("has taken a fork 🍴", philo);
+		pthread_mutex_lock(philo->left_fork);
 		print_status("has taken a fork 🍴", philo);
 	}
 }
@@ -38,28 +38,18 @@ void	print_status(char *str, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return ;
 	}
-	if (!philo->data->die)
-		printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id,
-			str);
+	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 void	is_eating(t_philo *philo)
 {
 	print_status("is eating 🍝", philo);
-	philo->last_meal = get_time();
 	philo->meals_counter++;
+	philo->last_meal = get_time();
 	ft_sleep(philo->data->time_to_eat);
-	if (philo->id % 2)
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-	}
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	sleep_think(t_philo *philo)
@@ -74,8 +64,8 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 	
 	philo = (t_philo *)arg;
-	if (philo->id % 2)
-		usleep(100);
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	philo->start_time = get_time();
 	while (1)
 	{
