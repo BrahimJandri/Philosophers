@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 11:39:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 12:00:13 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	taking_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
+	if (philo->id % 2)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		print_status("has taken a right fork 🍴", philo);
@@ -50,8 +50,16 @@ void	is_eating(t_philo *philo)
 	philo->meals_counter++;
 	philo->last_meal = get_time();
 	ft_sleep(philo->data->time_to_eat);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	if (philo->id % 2)
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+	}
 }
 
 void	sleep_think(t_philo *philo)
@@ -66,7 +74,7 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 	
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
+	if (philo->id % 2)
 		usleep(100);
 	philo->start_time = get_time();
 	while (1)

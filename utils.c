@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 11:07:50 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:56:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_sleep(int time)
 	long	start;
 
 	start = get_time();
-	while (get_time() - start < time);
+	while (get_time() - start <= time);
 }
 
 int	check_if_dead(t_philo *philo)
