@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 15:14:06 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 18:26:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	long			start_time;
 	struct s_data	*data;
 	pthread_t		thread_id;
+	pthread_t		thread_die;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 }					t_philo;
@@ -80,4 +81,6 @@ void				print_status(char *str, t_philo *philo);
 
 // for usleep
 void				ft_sleep(int time);
+void 				*monitoring(void *arg);
+
 #endif

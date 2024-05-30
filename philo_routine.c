@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 15:28:19 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 18:48:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	taking_forks(t_philo *philo)
 {
-	if (philo->id % 2 != 0)
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print_status("has taken a fork 🍴", philo);
-		pthread_mutex_lock(philo->right_fork);
-		print_status("has taken a fork 🍴", philo);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right_fork);
-		print_status("has taken a fork 🍴", philo);
-		pthread_mutex_lock(philo->left_fork);
-		print_status("has taken a fork 🍴", philo);
-	}
+	// if (philo->id % 2 == 0)
+	// {
+	pthread_mutex_lock(philo->left_fork);
+	print_status("has taken a fork 🍴", philo);
+	pthread_mutex_lock(philo->right_fork);
+	print_status("has taken a fork 🍴", philo);
+	// }
+	// else
+	// {
+	// 	pthread_mutex_lock(philo->right_fork);
+	// 	print_status("has taken a fork 🍴", philo);
+	// 	pthread_mutex_lock(philo->left_fork);
+	// 	print_status("has taken a fork 🍴", philo);
+	// }
 }
 
 void	print_status(char *str, t_philo *philo)
@@ -45,11 +45,11 @@ void	print_status(char *str, t_philo *philo)
 void	is_eating(t_philo *philo)
 {
 	print_status("is eating 🍝", philo);
-	philo->meals_counter++;
 	philo->last_meal = get_time();
+	philo->meals_counter++;
 	ft_sleep(philo->data->time_to_eat);
-	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 void	sleep_think(t_philo *philo)
