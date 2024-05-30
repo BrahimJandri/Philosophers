@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 10:40:48 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:40:03 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <limits.h>
 # include <pthread.h>
-# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -26,7 +25,6 @@
 typedef struct s_philo
 {
 	int				id;
-	int				die;
 	long			last_meal;
 	int				meals_counter;
 	long			start_time;
@@ -46,9 +44,7 @@ typedef struct s_data
 	int				number_of_meals;
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	lock_mutex;
 	t_philo			*philos;
-	int				ready;
 }					t_data;
 
 // parsing.c
@@ -82,5 +78,5 @@ void				sleep_think(t_philo *philo);
 void				print_status(char *str, t_philo *philo);
 
 // for usleep
-void				ft_sleep(long time);
+void				ft_sleep(int time);
 #endif
