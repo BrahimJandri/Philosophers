@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 18:53:18 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 19:05:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ void *monitoring(void *arg)
 		i = 0;
 		while (i < data->philo_nb)
 		{
+			if(check_is_full(data->philos) == 1)
+				return NULL;
 			if (((get_time() - data->philos[i].last_meal)) >= data->time_to_die)
 			{
 				pthread_mutex_lock(&data->print_mutex);
 				data->die = 1;
 				pthread_mutex_unlock(&data->print_mutex);
-				// print_status("has die\n", data->philos);
 				printf("%ld %d has die\n", get_time() - data->philos[i].last_meal, data->philos[i].id);
 				return NULL;
 			}
