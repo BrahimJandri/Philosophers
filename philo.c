@@ -15,17 +15,17 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
-	int i;
-	
+	int		i;
+
 	i = -1;
 	if (ac == 5 || ac == 6)
 	{
-		if(!check_int(ac, av))
+		if (!check_int(ac, av))
 		{
 			init_philos(&data, av);
 			free(data.philos);
 			free(data.fork_mutex);
-			while(++i < data.philo_nb)
+			while (++i < data.philo_nb)
 				pthread_mutex_destroy(&data.fork_mutex[i]);
 			pthread_mutex_destroy(&data.print_mutex);
 			pthread_mutex_destroy(&data.lock_mutex);

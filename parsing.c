@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:35:21 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/28 13:22:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 09:42:56 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void		error_input(char *str)
+void	error_input(char *str)
 {
 	write(2, str, ft_strlen(str));
 }
@@ -65,7 +65,7 @@ int	check_int(int ac, char **av)
 		j = 0;
 		tmp = ft_atol(av[i]);
 		if (tmp > INT_MAX || tmp < INT_MIN)
-			return(error_input("Number can't be greater than \
+			return (error_input("Number can't be greater than \
 int max or less than int min ❌\n"), 1);
 		while (av[i][j] == '0' || av[i][j] == '+')
 			j++;
@@ -74,7 +74,7 @@ int max or less than int min ❌\n"), 1);
 			if ((av[i][j] >= '0' && av[i][j] <= '9'))
 				j++;
 			else
-				return(error_input("Please enter a valid number\n"), 1);
+				return (error_input("Please enter a valid number\n"), 1);
 		}
 		i++;
 	}
