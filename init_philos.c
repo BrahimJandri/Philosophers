@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 18:40:28 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/31 11:18:46 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,25 @@ void init_philo_args(t_data *data, char **av)
 
 void create_philos(t_data *data)
 {
-    int i = 0;
-    pthread_t moni;
-    if (pthread_create(&moni, NULL, monitoring, data))
-    {
-        error_input("pthread_create failed\n");
-        return;
-    }
+    int i;
+    
+    i = 0;
+    if (pthread_create(&data->moni, NULL, monitoring, data))
+        thread_fail("pthread create fail\n");
     while (i < data->philo_nb)
     {
         if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
                 (void *)&data->philos[i]))
-        {
-            error_input("pthread_create failed\n");
-            return;
-        }
+            thread_fail("pthread create fail\n");
         i++;
     }
     i = 0;
-    if (pthread_join(moni, NULL))
-    {
-        error_input("pthread_join failed\n");
-        return;
-    }
+    if (pthread_join(data->moni, NULL))
+        thread_fail("pthread_join failed\n");
     while (i < data->philo_nb)
     {
         if (pthread_join(data->philos[i].thread_id, NULL))
-        {
-            error_input("pthread_join failed\n");
-            return;
-        }
+            thread_fail("pthread_join failed\n");
         i++;
     }
 }   
@@ -91,12 +80,12 @@ void init_philos(t_data *data, char **av)
 {
     int i;
 
+    i = 0;
     init_philo_args(data, av);
     create_forks(data);
     data->philos = malloc(sizeof(t_philo) * data->philo_nb);
     if (!data->philos)
         error_input("malloc philo fails\n");
-    i = 0;
     data->die = 0;
     while (i < data->philo_nb)
     {
@@ -112,4 +101,3 @@ void init_philos(t_data *data, char **av)
     }
     create_philos(data);
 }
-

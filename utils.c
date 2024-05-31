@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 19:05:42 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:39:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ long	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_sleep(int time)
+void	ft_sleep(long time)
 {
 	long	start;
 
 	start = get_time();
-	while (get_time() - start <= time);
+	while(get_time() - start <= time);
 }
 
 int	check_if_dead(t_philo *philo)
@@ -64,12 +64,12 @@ void *monitoring(void *arg)
 		{
 			if(check_is_full(data->philos) == 1)
 				return NULL;
-			if (((get_time() - data->philos[i].last_meal)) >= data->time_to_die)
+			if ((get_time() - data->philos[i].last_meal) >= data->time_to_die)
 			{
+				print_status("has died ⚰️", data->philos);
 				pthread_mutex_lock(&data->print_mutex);
 				data->die = 1;
 				pthread_mutex_unlock(&data->print_mutex);
-				printf("%ld %d has die\n", get_time() - data->philos[i].last_meal, data->philos[i].id);
 				return NULL;
 			}
 			i++;

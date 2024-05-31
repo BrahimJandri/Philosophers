@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 18:48:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/30 20:19:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	taking_forks(t_philo *philo)
 {
-	// if (philo->id % 2 == 0)
-	// {
-	pthread_mutex_lock(philo->left_fork);
-	print_status("has taken a fork 🍴", philo);
-	pthread_mutex_lock(philo->right_fork);
-	print_status("has taken a fork 🍴", philo);
-	// }
-	// else
-	// {
-	// 	pthread_mutex_lock(philo->right_fork);
-	// 	print_status("has taken a fork 🍴", philo);
-	// 	pthread_mutex_lock(philo->left_fork);
-	// 	print_status("has taken a fork 🍴", philo);
-	// }
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_status("has taken a fork 🍴", philo);
+		pthread_mutex_lock(philo->right_fork);
+		print_status("has taken a fork 🍴", philo);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_status("has taken a fork 🍴", philo);
+		pthread_mutex_lock(philo->left_fork);
+		print_status("has taken a fork 🍴", philo);
+	}
 }
 
 void	print_status(char *str, t_philo *philo)

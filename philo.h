@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 18:26:07 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:39:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ typedef struct s_data
 {
 	int				die;
 	int				philo_nb;
-	int				time_to_die;
-	int				time_to_sleep;
-	int				time_to_eat;
+	long			time_to_die;
+	long			time_to_sleep;
+	long			time_to_eat;
 	int				number_of_meals;
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	print_mutex;
+	pthread_t 		moni;
 	t_philo			*philos;
 
 }					t_data;
@@ -53,6 +54,7 @@ typedef struct s_data
 
 int					ft_strlen(char *str);
 void				error_input(char *str);
+void 				thread_fail(char *str);
 long				ft_atol(char *str);
 int					check_int(int ac, char **av);
 
@@ -62,25 +64,24 @@ void				init_philo_args(t_data *data, char **av);
 void				create_philos(t_data *data);
 void				create_forks(t_data *data);
 void				init_philos(t_data *data, char **av);
-int					check_is_full(t_philo *philo);
 
 
 // utils.c
 
 long				get_time(void);
-long				get_current_time(t_data *data);
+int					check_is_full(t_philo *philo);
+int					check_if_dead(t_philo *philo);
+void 				*monitoring(void *arg);
+void				ft_sleep(long time);
+
 
 // philo_routine.c
 
-void				*philo_routine(void *arg);
-int					check_if_dead(t_philo *philo);
 void				taking_forks(t_philo *philo);
+void				print_status(char *str, t_philo *philo);
 void				is_eating(t_philo *philo);
 void				sleep_think(t_philo *philo);
-void				print_status(char *str, t_philo *philo);
+void				*philo_routine(void *arg);
 
-// for usleep
-void				ft_sleep(int time);
-void 				*monitoring(void *arg);
 
 #endif
