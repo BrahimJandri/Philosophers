@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/30 20:19:35 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:07:09 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,21 @@ void	print_status(char *str, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return ;
 	}
-	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
+	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id, str);
 }
 
 void	is_eating(t_philo *philo)
 {
 	print_status("is eating 🍝", philo);
+	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->data->print_mutex);
+
+	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->meals_counter++;
+	pthread_mutex_unlock(&philo->data->print_mutex);
+
 	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);

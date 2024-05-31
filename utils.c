@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/31 14:39:35 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:08:54 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,15 @@ void	ft_sleep(long time)
 
 int	check_if_dead(t_philo *philo)
 {
+
+	pthread_mutex_lock(&philo->data->print_mutex);
 	if(philo->data->die == 1)
+	{
+		pthread_mutex_unlock(&philo->data->print_mutex);
 		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->print_mutex);
+	
 	if (((get_time() - philo->last_meal)) >= philo->data->time_to_die)
 	{
 		print_status("has died ⚰️", philo);
@@ -46,10 +53,13 @@ int	check_if_dead(t_philo *philo)
 int	check_is_full(t_philo *philo)
 {
 	usleep(100);
+	pthread_mutex_lock(&philo->data->print_mutex);
 	if (philo->data->number_of_meals == philo->meals_counter)
 	{
+		pthread_mutex_unlock(&philo->data->print_mutex);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->data->print_mutex);
 	return (0);
 }
 
@@ -64,14 +74,17 @@ void *monitoring(void *arg)
 		{
 			if(check_is_full(data->philos) == 1)
 				return NULL;
+			pthread_mutex_lock(&data->print_mutex);
 			if ((get_time() - data->philos[i].last_meal) >= data->time_to_die)
 			{
+				pthread_mutex_unlock(&data->print_mutex);
 				print_status("has died ⚰️", data->philos);
 				pthread_mutex_lock(&data->print_mutex);
 				data->die = 1;
 				pthread_mutex_unlock(&data->print_mutex);
 				return NULL;
 			}
+			pthread_mutex_unlock(&data->print_mutex);
 			i++;
 		}
 	}
