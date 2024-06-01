@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 10:27:36 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 11:16:06 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void init_philo_args(t_data *data, char **av)
     }
 }
 
+void create_monitoring(t_data *data)
+{
+    if (pthread_create(&data->moni, NULL, monitoring, data))
+        thread_fail("pthread create fail\n");
+    if (pthread_join(data->moni, NULL))
+        thread_fail("pthread_join failed\n");
+}
+
 void create_philos(t_data *data)
 {
     int i;
@@ -43,8 +51,7 @@ void create_philos(t_data *data)
             thread_fail("pthread create fail\n");
         i++;
     }
-    if (pthread_create(&data->moni, NULL, monitoring, data))
-        thread_fail("pthread create fail\n");
+    
     i = 0;
     while (i < data->philo_nb)
     {
@@ -52,8 +59,7 @@ void create_philos(t_data *data)
             thread_fail("pthread_join failed\n");
         i++;
     }
-    if (pthread_join(data->moni, NULL))
-        thread_fail("pthread_join failed\n");
+    
 }   
 
 void create_forks(t_data *data)
@@ -80,13 +86,13 @@ void init_philos(t_data *data, char **av)
 {
     int i;
 
-    i = 0;
     init_philo_args(data, av);
     create_forks(data);
     data->philos = malloc(sizeof(t_philo) * data->philo_nb);
     if (!data->philos)
         error_input("malloc philo fails\n");
     data->die = 0;
+    i = 0;
     while (i < data->philo_nb)
     {
         data->philos[i].id = i + 1;
@@ -94,10 +100,11 @@ void init_philos(t_data *data, char **av)
         data->philos[i].right_fork = &data->fork_mutex[(i + 1)
             % data->philo_nb];
         data->philos[i].last_meal = get_time();
+        data->philos[i].start_time = get_time();
         data->philos[i].meals_counter = 0;
         data->philos[i].data = data;
-        data->philos[i].start_time = get_time();
         i++;
     }
     create_philos(data);
+    create_monitoring(data);
 }
