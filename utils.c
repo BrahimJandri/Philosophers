@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/31 16:08:54 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 10:22:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_if_dead(t_philo *philo)
 	
 	if (((get_time() - philo->last_meal)) >= philo->data->time_to_die)
 	{
-		print_status("has died ⚰️", philo);
+		print_status("has died ⚰️ check", philo);
 		pthread_mutex_lock(&philo->data->print_mutex);
 		philo->data->die = 1;
 		pthread_mutex_unlock(&philo->data->print_mutex);
@@ -72,13 +72,13 @@ void *monitoring(void *arg)
 		i = 0;
 		while (i < data->philo_nb)
 		{
-			if(check_is_full(data->philos) == 1)
+			if(check_is_full(data->philos) == 1 || data->die == 1)
 				return NULL;
 			pthread_mutex_lock(&data->print_mutex);
 			if ((get_time() - data->philos[i].last_meal) >= data->time_to_die)
 			{
 				pthread_mutex_unlock(&data->print_mutex);
-				print_status("has died ⚰️", data->philos);
+				print_status("has died ⚰️ moni", data->philos);
 				pthread_mutex_lock(&data->print_mutex);
 				data->die = 1;
 				pthread_mutex_unlock(&data->print_mutex);

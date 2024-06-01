@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 09:59:45 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 10:29:52 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	taking_forks(t_philo *philo)
 void	print_status(char *str, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if (philo->data->die)
+	if (philo->data->die == 1)
 	{
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->data->print_mutex);
 	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id, str);
+	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 void	is_eating(t_philo *philo)

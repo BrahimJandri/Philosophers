@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/31 11:18:46 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 10:27:36 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void create_philos(t_data *data)
     int i;
     
     i = 0;
-    if (pthread_create(&data->moni, NULL, monitoring, data))
-        thread_fail("pthread create fail\n");
     while (i < data->philo_nb)
     {
         if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
@@ -45,15 +43,17 @@ void create_philos(t_data *data)
             thread_fail("pthread create fail\n");
         i++;
     }
+    if (pthread_create(&data->moni, NULL, monitoring, data))
+        thread_fail("pthread create fail\n");
     i = 0;
-    if (pthread_join(data->moni, NULL))
-        thread_fail("pthread_join failed\n");
     while (i < data->philo_nb)
     {
         if (pthread_join(data->philos[i].thread_id, NULL))
             thread_fail("pthread_join failed\n");
         i++;
     }
+    if (pthread_join(data->moni, NULL))
+        thread_fail("pthread_join failed\n");
 }   
 
 void create_forks(t_data *data)
@@ -89,7 +89,6 @@ void init_philos(t_data *data, char **av)
     data->die = 0;
     while (i < data->philo_nb)
     {
-        data->philos[i].start_time = get_time();
         data->philos[i].id = i + 1;
         data->philos[i].left_fork = &data->fork_mutex[i];
         data->philos[i].right_fork = &data->fork_mutex[(i + 1)
@@ -97,6 +96,7 @@ void init_philos(t_data *data, char **av)
         data->philos[i].last_meal = get_time();
         data->philos[i].meals_counter = 0;
         data->philos[i].data = data;
+        data->philos[i].start_time = get_time();
         i++;
     }
     create_philos(data);
