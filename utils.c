@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 12:41:25 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:46:34 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ long	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_sleep(long time)
+void	ft_sleep(long times)
 {
-	long	start;
+	time_t	start_time;
 
-	start = get_time();
-	while(get_time() - start <= time);
+	start_time = get_time();
+	while (get_time() - start_time < times)
+		usleep(100);
 }
 
 int	check_if_dead(t_philo *philo)
