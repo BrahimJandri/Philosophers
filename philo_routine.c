@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 10:29:52 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 13:09:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void	taking_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(philo->left_fork);
-		print_status("has taken a fork 🍴", philo);
 		pthread_mutex_lock(philo->right_fork);
+		print_status("has taken a fork 🍴", philo);
+		pthread_mutex_lock(philo->left_fork);
 		print_status("has taken a fork 🍴", philo);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->right_fork);
-		print_status("has taken a fork 🍴", philo);
 		pthread_mutex_lock(philo->left_fork);
+		print_status("has taken a fork 🍴", philo);
+		pthread_mutex_lock(philo->right_fork);
 		print_status("has taken a fork 🍴", philo);
 	}
 }
