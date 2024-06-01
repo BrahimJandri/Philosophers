@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 13:09:11 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/01 21:20:29 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	*philo_routine(void *arg)
 		if (philo->data->philo_nb == 1)
 		{
 			print_status("has taken a left fork", philo);
-			ft_sleep(philo->data->time_to_die + 5);
+			ft_sleep(philo->data->time_to_die);
 			continue ;
 		}
 		taking_forks(philo);
