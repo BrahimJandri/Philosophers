@@ -6,13 +6,13 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 20:48:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 10:03:46 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init_philo_args(t_data *data, char **av)
+int init_philo_args(t_data *data, char **av)
 {
     data->philo_nb = ft_atol(av[1]);
     data->time_to_die = ft_atol(av[2]);
@@ -27,8 +27,9 @@ void init_philo_args(t_data *data, char **av)
     if(data->number_of_meals == 0 || data->philo_nb == 0)
     {
         printf("ERROR : philo and number of meals must be more than 0\n");
-        return; 
+        return 1; 
     }
+    return 0;
 }
 
 void create_philos(t_data *data)
@@ -76,12 +77,13 @@ void create_forks(t_data *data)
     }
 }
 
-void init_philos(t_data *data, char **av)
+int init_philos(t_data *data, char **av)
 {
     int i;
 
     i = 0;
-    init_philo_args(data, av);
+    if(init_philo_args(data, av))
+        return 1;
     create_forks(data);
     data->philos = malloc(sizeof(t_philo) * data->philo_nb);
     if (!data->philos)
@@ -100,4 +102,5 @@ void init_philos(t_data *data, char **av)
         i++;
     }
     create_philos(data);
+    return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:50:16 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 16:52:55 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 10:04:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	main(int ac, char **av)
 	{
 		if (!check_int(ac, av))
 		{
-			init_philos(&data, av);
+			if(init_philos(&data, av))
+				return (1);
 			free(data.philos);
 			free(data.fork_mutex);
 			while (++i < data.philo_nb)
