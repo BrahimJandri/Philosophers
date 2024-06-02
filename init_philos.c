@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/02 10:03:46 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 12:05:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int init_philo_args(t_data *data, char **av)
     return 0;
 }
 
-void create_philos(t_data *data)
+int create_philos(t_data *data)
 {
     int i;
     
     i = 0;
     if (pthread_create(&data->moni, NULL, monitoring, data))
-        thread_fail("pthread create fail\n");
+        return(thread_fail("pthread create fail\n"), 1);
     while (i < data->philo_nb)
     {
         if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
                 (void *)&data->philos[i]))
-            thread_fail("pthread create fail\n");
+            return(thread_fail("pthread create fail\n"), 1);
         i++;
     }
     i = 0;
@@ -52,29 +52,28 @@ void create_philos(t_data *data)
     while (i < data->philo_nb)
     {
         if (pthread_join(data->philos[i].thread_id, NULL))
-            thread_fail("pthread_join failed\n");
+            return(thread_fail("pthread_join failed\n"), 1);
         i++;
     }
+    return 0;
 }   
 
-void create_forks(t_data *data)
+int create_forks(t_data *data)
 {
     int i;
     
     i = 0;
     data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
     if (!data->fork_mutex)
-        error_input("malloc forks fails\n");
+        return(error_input("malloc forks fails\n"), 1);
     pthread_mutex_init(&data->print_mutex, NULL);
     while (i < data->philo_nb)
     {
         if(pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
-        {
-            error_input("pthread_mutex_init failed\n");
-            return ;
-        }
+            return(error_input("pthread_mutex_init failed\n"), 1);
         i++;
     }
+    return 0;
 }
 
 int init_philos(t_data *data, char **av)
@@ -82,9 +81,8 @@ int init_philos(t_data *data, char **av)
     int i;
 
     i = 0;
-    if(init_philo_args(data, av))
+    if(init_philo_args(data, av) || create_forks(data))
         return 1;
-    create_forks(data);
     data->philos = malloc(sizeof(t_philo) * data->philo_nb);
     if (!data->philos)
         error_input("malloc philo fails\n");
@@ -101,6 +99,7 @@ int init_philos(t_data *data, char **av)
         data->philos[i].data = data;
         i++;
     }
-    create_philos(data);
+    if(create_philos(data))
+        return 1;
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:35:21 by bjandri           #+#    #+#             */
-/*   Updated: 2024/05/31 11:12:32 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 12:04:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	error_input(char *str)
+int	error_input(char *str)
 {
 	write(2, str, ft_strlen(str));
+	return 1;
 }
 
 void thread_fail(char *str)

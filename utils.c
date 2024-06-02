@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/01 16:46:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 10:59:08 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_if_dead(t_philo *philo)
 	
 	if (((get_time() - philo->last_meal)) >= philo->data->time_to_die)
 	{
-		print_status("has died ⚰️ check", philo);
+		print_status("has died ⚰️", philo);
 		pthread_mutex_lock(&philo->data->print_mutex);
 		philo->data->die = 1;
 		pthread_mutex_unlock(&philo->data->print_mutex);
