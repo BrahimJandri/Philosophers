@@ -12,9 +12,10 @@
 
 #include "philo.h"
 
-void free_all(t_data *data)
+void	free_all(t_data *data)
 {
-	int		i;
+	int	i;
+
 	i = -1;
 	while (++i < data->philo_nb)
 		pthread_mutex_destroy(&data->fork_mutex[i]);
@@ -31,7 +32,7 @@ int	main(int ac, char **av)
 	{
 		if (check_int(ac, av))
 			return (1);
-		if(init_philos(&data, av))
+		if (init_philos(&data, av))
 			free_all(&data);
 	}
 	else

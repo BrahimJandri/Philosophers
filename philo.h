@@ -45,18 +45,18 @@ typedef struct s_data
 	int				number_of_meals;
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	print_mutex;
-	pthread_t 		moni;
+	pthread_t		moni;
 	t_philo			*philos;
 
 }					t_data;
 
-void 				free_all(t_data *data);
+void				free_all(t_data *data);
 
 // parsing.c
 
 int					ft_strlen(char *str);
 int					error_input(char *str);
-void 				thread_fail(char *str);
+void				thread_fail(char *str);
 long				ft_atol(char *str);
 int					check_int(int ac, char **av);
 
@@ -67,15 +67,13 @@ int					create_philos(t_data *data);
 int					create_forks(t_data *data);
 int					init_philos(t_data *data, char **av);
 
-
 // utils.c
 
 long				get_time(void);
 int					check_is_full(t_philo *philo);
 int					check_if_dead(t_philo *philo);
-void 				*monitoring(void *arg);
+void				*monitoring(void *arg);
 void				ft_sleep(long time);
-
 
 // philo_routine.c
 
@@ -84,6 +82,5 @@ void				print_status(char *str, t_philo *philo);
 void				is_eating(t_philo *philo);
 void				sleep_think(t_philo *philo);
 void				*philo_routine(void *arg);
-
 
 #endif

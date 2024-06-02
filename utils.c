@@ -31,15 +31,13 @@ void	ft_sleep(long times)
 
 int	check_if_dead(t_philo *philo)
 {
-
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if(philo->data->die == 1)
+	if (philo->data->die == 1)
 	{
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->data->print_mutex);
-	
 	if (((get_time() - philo->last_meal)) >= philo->data->time_to_die)
 	{
 		print_status("has died ⚰️", philo);
@@ -64,17 +62,19 @@ int	check_is_full(t_philo *philo)
 	return (0);
 }
 
-void *monitoring(void *arg)
+void	*monitoring(void *arg)
 {
-	int i;
-	t_data *data = (t_data *)arg;
+	int		i;
+	t_data	*data;
+
+	data = (t_data *)arg;
 	while (1)
 	{
 		i = 0;
 		while (i < data->philo_nb)
 		{
-			if(check_is_full(data->philos) == 1)
-				return NULL;
+			if (check_is_full(data->philos) == 1)
+				return (NULL);
 			pthread_mutex_lock(&data->print_mutex);
 			if ((get_time() - data->philos[i].last_meal) >= data->time_to_die)
 			{
@@ -83,7 +83,7 @@ void *monitoring(void *arg)
 				pthread_mutex_lock(&data->print_mutex);
 				data->die = 1;
 				pthread_mutex_unlock(&data->print_mutex);
-				return NULL;
+				return (NULL);
 			}
 			pthread_mutex_unlock(&data->print_mutex);
 			i++;

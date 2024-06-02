@@ -38,7 +38,8 @@ void	print_status(char *str, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return ;
 	}
-	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id, str);
+	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id,
+		str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
@@ -48,11 +49,9 @@ void	is_eating(t_philo *philo)
 	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->data->print_mutex);
-
 	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->meals_counter++;
 	pthread_mutex_unlock(&philo->data->print_mutex);
-
 	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -68,7 +67,7 @@ void	sleep_think(t_philo *philo)
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
-	
+
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		usleep(1000);
