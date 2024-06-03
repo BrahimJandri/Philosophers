@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/02 12:03:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 13:33:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int					check_int(int ac, char **av);
 int					init_philo_args(t_data *data, char **av);
 int					create_philos(t_data *data);
 int					create_forks(t_data *data);
-int					init_philos(t_data *data, char **av);
+int					init_philos(t_data *data);
 
 // utils.c
 

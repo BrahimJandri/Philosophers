@@ -6,31 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/02 12:05:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/02 13:32:49 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	init_philo_args(t_data *data, char **av)
-{
-	data->philo_nb = ft_atol(av[1]);
-	data->time_to_die = ft_atol(av[2]);
-	data->time_to_eat = ft_atol(av[3]);
-	data->time_to_sleep = ft_atol(av[4]);
-	if (av[5])
-	{
-		data->number_of_meals = ft_atol(av[5]);
-	}
-	else
-		data->number_of_meals = -1;
-	if (data->number_of_meals == 0 || data->philo_nb == 0)
-	{
-		printf("ERROR : philo and number of meals must be more than 0\n");
-		return (1);
-	}
-	return (0);
-}
 
 int	create_philos(t_data *data)
 {
@@ -76,12 +56,12 @@ int	create_forks(t_data *data)
 	return (0);
 }
 
-int	init_philos(t_data *data, char **av)
+int	init_philos(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (init_philo_args(data, av) || create_forks(data))
+	if (create_forks(data))
 		return (1);
 	data->philos = malloc(sizeof(t_philo) * data->philo_nb);
 	if (!data->philos)
