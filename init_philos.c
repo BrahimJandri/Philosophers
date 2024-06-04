@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/04 14:52:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/04 19:00:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,22 @@ int	create_philos(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->philo_nb)
+	i = -1;
+	while (++i < data->philo_nb)
 	{
 		if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
 				(void *)&data->philos[i]))
 			return (thread_fail("pthread create fail\n"), 1);
-		i++;
 	}
 	if (pthread_create(&data->moni, NULL, monitoring, data))
 		return (thread_fail("pthread create fail\n"), 1);
-	i = 0;
 	if (pthread_join(data->moni, NULL))
 		thread_fail("pthread_join failed\n");
-	while (i < data->philo_nb)
+	i = -1;
+	while (++i < data->philo_nb)
 	{
 		if (pthread_join(data->philos[i].thread_id, NULL))
 			return (thread_fail("pthread_join failed\n"), 1);
-		i++;
 	}
 	return (0);
 }
