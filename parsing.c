@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:35:21 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/02 13:28:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/04 10:52:34 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	check_int(int ac, char **av)
 		if (tmp > INT_MAX || tmp < INT_MIN)
 			return (error_input("Number can't be greater than \
 int max or less than int min ❌\n"), 1);
-		while (av[i][j] == '0' || av[i][j] == '+')
+		while (av[i][j] == '0' || av[i][j] == '+' || av[i][j] == ' ')
 			j++;
 		while (av[i][j])
 		{
