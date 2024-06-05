@@ -38,9 +38,9 @@ void	print_status(char *str, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return ;
 	}
+	pthread_mutex_unlock(&philo->data->print_mutex);
 	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id,
 		str);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 void	is_eating(t_philo *philo)
@@ -77,7 +77,7 @@ void	*philo_routine(void *arg)
 		usleep(100);
 	while (1)
 	{
-		if (check_if_dead(philo) || check_is_full(philo))
+		if (check_is_full(philo->data))
 			return (NULL);
 		if (philo->data->philo_nb == 1)
 		{

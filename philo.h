@@ -70,7 +70,7 @@ int					init_philos(t_data *data);
 // utils.c
 
 long				get_time(void);
-int					check_is_full(t_philo *philo);
+int					check_is_full(t_data *data);
 int					check_if_dead(t_philo *philo);
 void				*monitoring(void *arg);
 void				ft_sleep(long time);
