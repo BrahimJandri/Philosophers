@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/04 19:45:28 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/05 08:49:34 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	is_eating(t_philo *philo)
 
 	print_status("is eating 🍝", philo);
 
+	ft_sleep(philo->data->time_to_eat);
+
 	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->meals_counter++;
 	pthread_mutex_unlock(&philo->data->print_mutex);
-
-	ft_sleep(philo->data->time_to_eat);
 
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -75,9 +75,9 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		usleep(100);
-	while (!philo->data->die)
+	while (1)
 	{
-		if (check_is_full(philo))
+		if (check_if_dead(philo) || check_is_full(philo))
 			return (NULL);
 		if (philo->data->philo_nb == 1)
 		{
