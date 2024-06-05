@@ -54,9 +54,9 @@ int	main(int ac, char **av)
 			return (1);
 		if (init_philos(&data))
 			free_all(&data);
+		free_all(&data);
 	}
 	else
 		error_input("Usage : 5 800 200 200\n");
-	free_all(&data);
 	return (0);
 }
