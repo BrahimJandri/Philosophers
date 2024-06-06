@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/06 10:15:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 11:11:09 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,17 @@ void	is_eating(t_philo *philo)
 	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->data->print_mutex);
-
 	print_status("is eating 🍝", philo);
-
 	ft_sleep(philo->data->time_to_eat);
-
 	pthread_mutex_lock(&philo->data->print_mutex);
 	philo->meals_counter++;
 	pthread_mutex_unlock(&philo->data->print_mutex);
-
+	if (philo->data->number_of_meals == philo->meals_counter)
+	{
+		pthread_mutex_lock(&philo->data->print_mutex);
+		philo->is_full = 1;
+		pthread_mutex_unlock(&philo->data->print_mutex);
+	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }

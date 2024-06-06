@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/06 10:20:21 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 11:50:09 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_is_full(t_data *data)
 	while(i < data->philo_nb)
 	{
 		pthread_mutex_lock(&data->print_mutex);
-		if (data->number_of_meals != data->philos[i].meals_counter)
+		if (!data->philos[i].is_full)
 		{
 			pthread_mutex_unlock(&data->print_mutex);
 			return (0);
@@ -77,8 +77,14 @@ void	*monitoring(void *arg)
 		i = -1;
 		while (++i < data->philo_nb)
 		{
-			if (check_is_full(data) == 1 || data->die == 1)
+			check_is_full(data);
+			pthread_mutex_lock(&data->print_mutex);
+			if (data->is_full == 1 || data->die == 1)
+			{
+				pthread_mutex_unlock(&data->print_mutex);
 				return (NULL);
+			}
+			pthread_mutex_unlock(&data->print_mutex);
 			pthread_mutex_lock(&data->print_mutex);
 			if ((get_time() - data->philos[i].last_meal) > data->time_to_die)
 			{

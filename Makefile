@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=thread
 RM = rm -f
 
 SRC = philo.c parsing.c init_philos.c philo_routine.c utils.c

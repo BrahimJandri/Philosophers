@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:35:21 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/03 12:00:54 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 11:32:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ long	ft_atol(char *str)
 	}
 	return (res * sign);
 }
+
+
 
 int	check_int(int ac, char **av)
 {
