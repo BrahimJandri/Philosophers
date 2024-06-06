@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/04 19:00:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 10:06:36 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	init_philos(t_data *data)
 	if (!data->philos)
 		error_input("malloc philo fails\n");
 	data->die = 0;
+	data->is_full = 0;
 	while (i < data->philo_nb)
 	{
 		data->philos[i].start_time = get_time();

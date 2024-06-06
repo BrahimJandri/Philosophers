@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:24:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/05 08:49:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 10:15:13 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	print_status(char *str, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return ;
 	}
+	pthread_mutex_unlock(&philo->data->print_mutex);
 	printf(BLUE "%ld %d %s\n", (get_time() - philo->start_time), philo->id,
 		str);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 void	is_eating(t_philo *philo)
@@ -77,13 +77,18 @@ void	*philo_routine(void *arg)
 		usleep(100);
 	while (1)
 	{
-		if (check_is_full(philo->data) || check_if_dead(philo))
+		pthread_mutex_lock(&philo->data->print_mutex);
+		if (philo->data->is_full == 1|| philo->data->die == 1)
+		{
+			pthread_mutex_unlock(&philo->data->print_mutex);
 			return (NULL);
+		}
+		pthread_mutex_unlock(&philo->data->print_mutex);
 		if (philo->data->philo_nb == 1)
 		{
-			print_status("has taken a left fork", philo);
+			print_status("has taken a fork", philo);
 			ft_sleep(philo->data->time_to_die);
-			continue ;
+			break ;
 		}
 		taking_forks(philo);
 		is_eating(philo);
