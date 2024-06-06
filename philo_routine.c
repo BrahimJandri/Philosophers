@@ -80,7 +80,7 @@ void	*philo_routine(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->print_mutex);
-		if (philo->data->is_full == 1|| philo->data->die == 1)
+		if (philo->data->is_full == 1 || philo->data->die == 1)
 		{
 			pthread_mutex_unlock(&philo->data->print_mutex);
 			return (NULL);

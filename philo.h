@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:03:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/06 11:49:51 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 12:07:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,10 @@ int					init_philos(t_data *data);
 
 // utils.c
 
-long				get_time(void);
 int					check_is_full(t_data *data);
 int					check_if_dead(t_philo *philo);
 void				*monitoring(void *arg);
-void				ft_sleep(long time);
+int					check_full_die(t_data *data);
 
 // philo_routine.c
 
@@ -84,5 +83,10 @@ void				print_status(char *str, t_philo *philo);
 void				is_eating(t_philo *philo);
 void				sleep_think(t_philo *philo);
 void				*philo_routine(void *arg);
+
+// time.c
+
+void				ft_sleep(long time);
+long				get_time(void);
 
 #endif

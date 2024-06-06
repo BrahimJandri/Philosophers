@@ -6,28 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 13:19:29 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/06 11:50:09 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 12:06:50 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long	get_time(void)
-{
-	static struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-}
-
-void	ft_sleep(long times)
-{
-	time_t	start_time;
-
-	start_time = get_time();
-	while (get_time() - start_time < times)
-		usleep(100);
-}
 
 int	check_if_dead(t_philo *philo)
 {
@@ -46,10 +29,10 @@ int	check_if_dead(t_philo *philo)
 
 int	check_is_full(t_data *data)
 {
-	int i; 
-	
+	int	i;
+
 	i = 0;
-	while(i < data->philo_nb)
+	while (i < data->philo_nb)
 	{
 		pthread_mutex_lock(&data->print_mutex);
 		if (!data->philos[i].is_full)
@@ -66,6 +49,19 @@ int	check_is_full(t_data *data)
 	return (1);
 }
 
+int	check_full_die(t_data *data)
+{
+	check_is_full(data);
+	pthread_mutex_lock(&data->print_mutex);
+	if (data->is_full == 1 || data->die == 1)
+	{
+		pthread_mutex_unlock(&data->print_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->print_mutex);
+	return (0);
+}
+
 void	*monitoring(void *arg)
 {
 	int		i;
@@ -77,14 +73,8 @@ void	*monitoring(void *arg)
 		i = -1;
 		while (++i < data->philo_nb)
 		{
-			check_is_full(data);
-			pthread_mutex_lock(&data->print_mutex);
-			if (data->is_full == 1 || data->die == 1)
-			{
-				pthread_mutex_unlock(&data->print_mutex);
+			if (check_full_die(data))
 				return (NULL);
-			}
-			pthread_mutex_unlock(&data->print_mutex);
 			pthread_mutex_lock(&data->print_mutex);
 			if ((get_time() - data->philos[i].last_meal) > data->time_to_die)
 			{

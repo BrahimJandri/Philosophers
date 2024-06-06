@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:04:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/06 10:49:04 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/06 12:01:24 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	init_philos(t_data *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (create_forks(data))
 		return (1);
 	data->philos = malloc(sizeof(t_philo) * data->philo_nb);
@@ -66,7 +66,7 @@ int	init_philos(t_data *data)
 		error_input("malloc philo fails\n");
 	data->die = 0;
 	data->is_full = 0;
-	while (i < data->philo_nb)
+	while (++i < data->philo_nb)
 	{
 		data->philos[i].is_full = 0;
 		data->philos[i].start_time = get_time();
@@ -77,7 +77,6 @@ int	init_philos(t_data *data)
 		data->philos[i].last_meal = get_time();
 		data->philos[i].meals_counter = 0;
 		data->philos[i].data = data;
-		i++;
 	}
 	if (create_philos(data))
 		return (1);
